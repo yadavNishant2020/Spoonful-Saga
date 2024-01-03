@@ -5,19 +5,20 @@ import * as RecipeAPI from "./recipe-api"
 
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 app.use(express.json())
 app.use(cors())
 
 app.get("/api/recipes/search", async (req, res) => {
     // https://api.spoonacular.com/recipes/serach?searchTerm=burger&page=2
+
     const searchTerm = req.query.searchTerm as string;
     const page = parseInt(req.query.page as string);
 
-    const result = await RecipeAPI.searchRecipes(searchTerm,page);
+    const results = await RecipeAPI.searchRecipes(searchTerm,page);
 
-    return res.json(result);
+    return res.json(results);
 })
 
 
