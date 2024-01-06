@@ -8,6 +8,7 @@ interface Props {
 }
 
 const RecipeModal = ({ recipeId, onClose }: Props) => {
+
     const [recipeSummary, setRecipeSummary] = useState<RecipeSummary>();
 
     useEffect(() => {
@@ -21,9 +22,11 @@ const RecipeModal = ({ recipeId, onClose }: Props) => {
         };
         fetchRecipeSummary();
     }, [recipeId])
+
     if (!recipeSummary) {
         return <></>;
     }
+
     return (
         <>
             <div className="overlay">

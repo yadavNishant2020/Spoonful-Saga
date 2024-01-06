@@ -38,24 +38,26 @@ const App = () => {
     }
   }
 
-  return <div>
-    <form action="" onSubmit={(event) => handleSearchSubmit(event)}>
-      <input
-        type="text"
-        required placeholder="Enter a search term...."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button >Submit</button>
+  return (
+    <div>
+      <form action="" onSubmit={(event) => handleSearchSubmit(event)}>
+        <input
+          type="text"
+          required placeholder="Enter a search term...."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button >Submit</button>
 
-    </form>
-    {recipes.map((recipe) => (
-      <RecipeCard recipe={recipe} onclick={() => setSelectedRecipe(recipe)} />
-    ))}
-    <button onClick={handleViewMore}>View More Recipes</button>
+      </form>
+      {recipes.map((recipe) => (
+        <RecipeCard recipe={recipe} onclick={() => setSelectedRecipe(recipe)} />
+      ))}
+      <button onClick={handleViewMore}>View More Recipes</button>
 
-    {selectedRecipe? <RecipeModal recipeId={selectedRecipe.id.toString()} onClose={() => setSelectedRecipe(undefined)}  /> : null}
-  </div>
+      {selectedRecipe ? <RecipeModal recipeId={selectedRecipe.id.toString()} onClose={() => setSelectedRecipe(undefined)} /> : null}
+    </div>
+  )
 }
 
 export default App;
