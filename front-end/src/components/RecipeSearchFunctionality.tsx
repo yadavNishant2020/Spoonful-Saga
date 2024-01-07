@@ -1,9 +1,8 @@
 import { FormEvent, useState, useRef, useEffect } from "react";
-import "./App.css"
-import * as api from './api'
-import { Recipe } from "./types";
-import { RecipeCard } from "./components/ReceipeCard";
-import RecipeModal from "./components/RecipeModal";
+import * as api from '../api'
+import { Recipe } from "../types";
+import { RecipeCard } from "./ReceipeCard";
+import RecipeModal from "./RecipeModal";
 
 type Tabs = "search" | "favrourites";
 
@@ -74,52 +73,57 @@ const RecipeSearchFunctionality = () => {
   }
 
   return (
-    <div>
-      <div className="tabs">
-        <h1 onClick={() => setSelectedTab("search")}>Recipe Search</h1>
-        <h1 onClick={() => setSelectedTab("favrourites")}>Favourites</h1>
-      </div>
-      {selectesTab === "search" && (
-        <>      <form action="" onSubmit={(event) => handleSearchSubmit(event)}>
-          <input
-            type="text"
-            required placeholder="Enter a search term...."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button >Submit</button>
 
-        </form>
+    <div className="p-8">
+      <div className="flex justify-between mb-4">
+        <h1 className={`cursor-pointer ${selectesTab === "search" ? "text-blue-500" : ""}`} onClick={() => setSelectedTab("search")}>Recipe Search</h1>
+        <h1 className={`cursor-pointer ${selectesTab === "favrourites" ? "text-blue-500" : ""}`} onClick={() => setSelectedTab("favrourites")}>Favourites</h1>
+      </div>
+
+      {selectesTab === "search" && (
+        <>
+          <form action="" onSubmit={(event) => handleSearchSubmit(event)} className="mb-4">
+            <input
+              type="text"
+              required
+              placeholder="Enter a search term...."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="p-2 border rounded"
+            />
+            <button className="ml-2 bg-blue-500 text-white p-2 rounded">Submit</button>
+          </form>
+
           {recipes.map((recipe) => {
             const isFav = favouriteRecipes.some((favRecipe) => recipe.id === favRecipe.id);
             return (
               <RecipeCard
+                key={recipe.id}
                 recipe={recipe}
                 onclick={() => setSelectedRecipe(recipe)}
-                onFavBtnClick={isFav ? removeFavRecipe :  addFavRecipe }
+                onFavBtnClick={isFav ? removeFavRecipe : addFavRecipe}
                 isFav={isFav}
               />
             );
           })}
-          <button onClick={handleViewMore}>View More Recipes</button>
+          <button onClick={handleViewMore} className="bg-blue-500 text-white p-2 rounded">View More Recipes</button>
         </>
       )}
 
-      {
-        selectesTab === "favrourites" && (
-          <div>
-            {favouriteRecipes.map((recipe) => (
-              <RecipeCard
-                recipe={recipe}
-                onclick={() => setSelectedRecipe(recipe)}
-                onFavBtnClick={() => removeFavRecipe(recipe)}
-                isFav={true}
+      {selectesTab === "favrourites" && (
+        <div>
+          {favouriteRecipes.map((recipe) => (
+            <RecipeCard
+              key={recipe.id}
+              recipe={recipe}
+              onclick={() => setSelectedRecipe(recipe)}
+              onFavBtnClick={() => removeFavRecipe(recipe)}
+              isFav={true}
+            />
+          ))}
+        </div>
+      )}
 
-              />
-            ))}
-          </div>
-        )
-      }
       {selectedRecipe ? <RecipeModal recipeId={selectedRecipe.id.toString()} onClose={() => setSelectedRecipe(undefined)} /> : null}
     </div>
   )
