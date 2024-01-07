@@ -1,4 +1,4 @@
-# MyRecipePal - A Full Stack Recipe App 🍲🚀
+# Spoonful Saga - A Full Stack Recipe App 🍲🚀
 
 Welcome to MyRecipePal, a fully realized Recipe App showcasing my full-stack development skills. Crafted with React, Node.js, and PostgreSQL, this project goes beyond code—it's a testament to my proficiency.
 
