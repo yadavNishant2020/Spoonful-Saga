@@ -7,7 +7,7 @@ export default {
         'sans': ['Helvetica', 'Arial', 'sans-serif'],
       },
       backgroundImage: {
-        'home-background': "url('background.jpeg')",
+        'home-background': "url('img/background.jpeg')",
       },
       colors: {
         'light-green': '#91C851',
