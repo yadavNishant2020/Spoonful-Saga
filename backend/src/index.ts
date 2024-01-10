@@ -3,6 +3,11 @@ import express from "express"
 import cors from "cors"
 import * as RecipeAPI from "./recipe-api"
 import { PrismaClient } from "@prisma/client";
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
 
 const app = express();
 const port = 4000;
@@ -30,23 +35,23 @@ app.get("/api/recipes/:recipeId/summary", async (req, res) => {
     return res.json(results);
 });
 
-app.post("/api/recipes/favourite", async (req, res) => {
-    const recipeId = req.body.recipeId;
+// app.post("/api/recipes/favourite", async (req, res) => {
+//     const recipeId = req.body.recipeId;
 
-    try {
-        const favRecipe = await prismaClient.favResipies.create(
-            {
-                data: {
-                    recipeId
-                }
-            }
-        );
-        return res.status(201).json(favRecipe)
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: "Oops! Something went wrong" })
-    }
-})
+//     try {
+//         const favRecipe = await prismaClient.favResipies.create(
+//             {
+//                 data: {
+//                     recipeId
+//                 }
+//             }
+//         );
+//         return res.status(201).json(favRecipe)
+//     } catch (error) {
+//         console.error(error);
+//         return res.status(500).json({ error: "Oops! Something went wrong" })
+//     }
+// })
 
 app.get("/api/recipes/favourite", async (req, res) => {
     try {
@@ -77,6 +82,35 @@ app.delete('/api/recipes/favourite', async (req, res) => {
         return res.status(500).json({ error: "Oops! Something went wrong" })
     }
 })
+
+app.post("/chat", async(req, res) => {
+
+    const {prompt} = req.body;
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [{
+                role: "user",
+                content: prompt
+            }],
+            temperature: 1,
+            max_tokens: 661,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+        });
+
+        res.send(response.choices[0].message.content)
+
+
+    } catch (error) {
+        console.error(error);
+    }
+
+})
+
+
 
 app.listen(port, () => {
     console.log(`Server running at port ${port}`);

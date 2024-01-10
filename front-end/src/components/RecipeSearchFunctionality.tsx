@@ -89,11 +89,12 @@ const RecipeSearchFunctionality = () => {
         <>
           <form action="" onSubmit={(event) => handleSearchSubmit(event)} className="mb-9">
             <div className="relative">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none pb-14 md:pb-0">
                 <svg className="w-4 h-4 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
               </div>
+              <div className="flex flex-col md:flex-row items-center gap-3">
               <input
                 type="text"
                 required
@@ -103,10 +104,11 @@ const RecipeSearchFunctionality = () => {
                 className="pl-9 p-2 border rounded "
               />
 
-              <button className="p-2 ml-2 text-white bg-green-600 hover:bg-green-400 rounded">Search Recipes</button>
+              <button className="p-2  text-white bg-green-600 hover:bg-green-400 rounded w-36">Search Recipes</button>
+              </div>
             </div>
           </form>
-          <div className="flex flex-wrap justify-around gap-5">
+          <div className="flex flex-wrap justify-around gap-5 ">
             {recipes.map((recipe) => {
               const isFav = favouriteRecipes.some((favRecipe) => recipe.id === favRecipe.id);
               return (
