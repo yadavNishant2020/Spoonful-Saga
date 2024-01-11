@@ -1,5 +1,11 @@
 require('dotenv').config();
 const apiKey = process.env.API_KEY;
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
+
 // console.log(apiKey);
 
 
@@ -71,4 +77,39 @@ export const getFavRecipedByIDs = async (ids: string[]) => {
     const json = await searchResponse.json();
 
     return {results: json};
+}
+
+export const chatGpt = async(prompt: any) => {
+
+    try {
+
+        if (!prompt) {
+            throw new Error("Prompt is null or undefined");
+        }
+
+        console.log("Prompt :", prompt); // Add this line for debugging
+
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [{
+                role: "user",
+                content: prompt
+            }],
+            temperature: 1,
+            max_tokens: 661,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+        });
+
+        console.log(response);
+
+        return response.choices[0].message.content;
+
+
+    } catch (error) {
+        console.error(error);
+    }
+
 }

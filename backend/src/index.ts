@@ -5,13 +5,13 @@ import * as RecipeAPI from "./recipe-api"
 import { PrismaClient } from "@prisma/client";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-
 const app = express();
 const port = 4000;
 const prismaClient = new PrismaClient();
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
 
 app.use(express.json())
 app.use(cors())
@@ -83,33 +83,18 @@ app.delete('/api/recipes/favourite', async (req, res) => {
     }
 })
 
-app.post("/chat", async(req, res) => {
 
-    const {prompt} = req.body;
+app.post("/chat", async (req, res) => {
+    const { prompt } = req.body;
 
     try {
-        const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
-            messages: [{
-                role: "user",
-                content: prompt
-            }],
-            temperature: 1,
-            max_tokens: 661,
-            top_p: 1,
-            frequency_penalty: 0,
-            presence_penalty: 0,
-        });
-
-        res.send(response.choices[0].message.content)
-
-
+        const chatGptResponse = await RecipeAPI.chatGpt(prompt);
+        return res.json({ chatGptResponse });
     } catch (error) {
         console.error(error);
+        return res.status(500).json({ error: "Internal Server Error" });
     }
-
-})
-
+});
 
 
 app.listen(port, () => {
