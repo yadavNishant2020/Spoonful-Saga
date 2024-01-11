@@ -79,37 +79,35 @@ export const getFavRecipedByIDs = async (ids: string[]) => {
     return {results: json};
 }
 
-export const chatGpt = async(prompt: any) => {
-
+export const chatGpt = async (prompt: any, servings: string, dishType: string) => {
     try {
+      if (!prompt) {
+        throw new Error("Prompt is null or undefined");
+      }
 
-        if (!prompt) {
-            throw new Error("Prompt is null or undefined");
-        }
+      console.log("Prompt:", prompt);
+      console.log("Servings:", servings);
+      console.log("Dish Type:", dishType);
+  
+      const response = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: `${prompt} Servings: ${servings} Dish Type: ${dishType}`,
+          },
+        ],
+        temperature: 1,
+        max_tokens: 661,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      });
 
-        console.log("Prompt :", prompt); // Add this line for debugging
+      console.log(response);
 
-
-        const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
-            messages: [{
-                role: "user",
-                content: prompt
-            }],
-            temperature: 1,
-            max_tokens: 661,
-            top_p: 1,
-            frequency_penalty: 0,
-            presence_penalty: 0,
-        });
-
-        console.log(response);
-
-        return response.choices[0].message.content;
-
-
+      return response.choices[0].message.content;
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-
-}
+  };

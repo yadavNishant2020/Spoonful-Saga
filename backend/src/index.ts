@@ -85,10 +85,9 @@ app.delete('/api/recipes/favourite', async (req, res) => {
 
 
 app.post("/chat", async (req, res) => {
-    const { prompt } = req.body;
-
+    const { prompt, servings, dishType } = req.body;
     try {
-        const chatGptResponse = await RecipeAPI.chatGpt(prompt);
+        const chatGptResponse = await RecipeAPI.chatGpt(prompt, servings, dishType);
         return res.json({ chatGptResponse });
     } catch (error) {
         console.error(error);
