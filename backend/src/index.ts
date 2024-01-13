@@ -35,23 +35,23 @@ app.get("/api/recipes/:recipeId/summary", async (req, res) => {
     return res.json(results);
 });
 
-// app.post("/api/recipes/favourite", async (req, res) => {
-//     const recipeId = req.body.recipeId;
+app.post("/api/recipes/favourite", async (req, res) => {
+    const recipeId = req.body.recipeId;
 
-//     try {
-//         const favRecipe = await prismaClient.favResipies.create(
-//             {
-//                 data: {
-//                     recipeId
-//                 }
-//             }
-//         );
-//         return res.status(201).json(favRecipe)
-//     } catch (error) {
-//         console.error(error);
-//         return res.status(500).json({ error: "Oops! Something went wrong" })
-//     }
-// })
+    try {
+        const favRecipe = await prismaClient.favResipies.create(
+            {
+                data: {
+                    recipeId
+                }
+            }
+        );
+        return res.status(201).json(favRecipe)
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Oops! Something went wrong" })
+    }
+})
 
 app.get("/api/recipes/favourite", async (req, res) => {
     try {
