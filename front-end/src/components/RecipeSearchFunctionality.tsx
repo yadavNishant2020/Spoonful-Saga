@@ -18,8 +18,15 @@ const RecipeSearchFunctionality = () => {
   useEffect(() => {
     const fetchFavRecipe = async () => {
       try {
-        const favouriteRecipes = await api.getFavouriteRecipes();
-        setfavouriteRecipes(favouriteRecipes.results);
+        const storedFavRecipes = localStorage.getItem("favouriteRecipes");
+        if (storedFavRecipes) {
+          setfavouriteRecipes(JSON.parse(storedFavRecipes));
+        } else {
+          const favouriteRecipes = await api.getFavouriteRecipes();
+          setfavouriteRecipes(favouriteRecipes.results);
+          localStorage.setItem("favouriteRecipes", JSON.stringify(favouriteRecipes.results));
+        }
+        
       } catch (error) {
         console.error(error);
       }
@@ -28,14 +35,12 @@ const RecipeSearchFunctionality = () => {
   }, [])
 
   const handleSearchSubmit = async (event: FormEvent) => {
-
     event.preventDefault();
     try {
-
       const recipes = await api.searchRecipes(searchTerm, 1);
       setRecipes(recipes.results);
+      console.log(setRecipes);
       pageNumber.current = 1;
-
     } catch (error) {
 
       console.error("Failed fetching api.", error);
