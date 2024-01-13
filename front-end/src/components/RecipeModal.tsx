@@ -30,7 +30,7 @@ const RecipeModal = ({ recipeId, onClose }: Props) => {
     return (
         <>
         <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex items-center justify-center mt-32">
+            <div className="flex items-center justify-center mt-32 mx-5">
                 <div className="overlay fixed inset-0 bg-black bg-opacity-80"></div>
     
                 <div className="modal bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative">

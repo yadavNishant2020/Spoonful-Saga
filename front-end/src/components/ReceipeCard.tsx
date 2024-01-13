@@ -16,7 +16,7 @@ export const RecipeCard = ({ recipe, onclick, onFavBtnClick, isFav }: Props) => 
         <img className="mb-2 rounded-sm border-black" width={350} height={350} src={recipe.image} alt={recipe.title} />
 
       </div>
-      <div className="flex items-center gap-4 justify-center w-72">
+      <div className="flex  gap-4 w-72">
         <span
           className="cursor-pointer"
           onClick={(event) => {
