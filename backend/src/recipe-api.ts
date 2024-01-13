@@ -23,8 +23,8 @@ export const searchRecipes = async (searchTerm: string, page: number) => {
     const queryParams = {
         apiKey: apiKey,
         query: searchTerm,
-        number: "10",
-        offset: (page * 10).toString()
+        number: "8",
+        offset: (page * 8).toString()
     }
 
     url.search = new URLSearchParams(queryParams).toString() //Attach each value pairs to the url
