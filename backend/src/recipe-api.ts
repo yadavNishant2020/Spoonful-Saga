@@ -79,7 +79,7 @@ export const getFavRecipedByIDs = async (ids: string[]) => {
     return {results: json};
 }
 
-export const chatGpt = async (prompt: any, servings: string, dishType: string) => {
+export const chatGpt = async (prompt: any, servings: string, dishType: string, spiceLevel:string, allergyType:string) => {
     try {
       if (!prompt) {
         throw new Error("Prompt is null or undefined");
@@ -94,7 +94,7 @@ export const chatGpt = async (prompt: any, servings: string, dishType: string) =
         messages: [
           {
             role: "user",
-            content: `${prompt} Servings: ${servings} Dish Type: ${dishType}`,
+            content: `${prompt} Servings: ${servings} Dish Type: ${dishType} Spice Level:${spiceLevel} strictly avoid using: ${allergyType} `,
           },
         ],
         temperature: 1,

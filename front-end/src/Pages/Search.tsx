@@ -1,4 +1,4 @@
-import RecipeSearchFunctionality from "./RecipeSearchFunctionality"
+import RecipeSearchFunctionality from "../components/RecipeSearchFunctionality"
 
 function Search() {
   return (

@@ -8,6 +8,7 @@ export default {
       },
       backgroundImage: {
         'home-background': "url('img/background.jpeg')",
+        'recipe-background': "url('img/recipeBg.jpg')",
       },
       colors: {
         'light-green': '#91C851',

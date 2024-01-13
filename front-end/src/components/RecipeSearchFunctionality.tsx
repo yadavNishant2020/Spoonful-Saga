@@ -26,7 +26,7 @@ const RecipeSearchFunctionality = () => {
           setfavouriteRecipes(favouriteRecipes.results);
           localStorage.setItem("favouriteRecipes", JSON.stringify(favouriteRecipes.results));
         }
-        
+
       } catch (error) {
         console.error(error);
       }
