@@ -74,40 +74,41 @@ function Form({ onClose }: Props) {
         const get_instructions = formData.get_instructions;
 
         return (
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex  items-center justify-center mt-32 mx-5">
+          <div className="fixed inset-0 overflow-y-auto z-30">
+            <div className="flex  items-center justify-center mt-3 mx-5 ">
               <div className="overlay fixed inset-0 bg-black bg-opacity-80"></div>
 
-              <div className="modal bg-white p-6 rounded-lg shadow-lg max-w-5xl  relative">
+              <div className="modal bg-recipe-background p-6 rounded-lg shadow-lg relative md:w-[80vw]">
                 <div className="modal-content">
-                  <div className="modal-header mb-4">
-                    <h2 className="text-3xl font-bold mb-2 flex justify-between">Recipe Details <span
-                      className="close-btn cursor-pointer text-gray-500 text-3xl"
+                  <div className="modal-header mb-4 ">
+                  <span
+                      className="close-btn cursor-pointer text-gray-500 text-3xl flex justify-end"
                       onClick={() => {
                         onClose();
                         setIsModalOpen(false);
                       }}
                     >
                       &times;
-                    </span></h2>
-                    <p className="text-lg pt-8">{get_recipeName}</p>
-                    <div className="text-lg pt-8">
-                      Ingredients:
-                      <ul>
+                    </span>
+                    <h2 className="ms:text-3xl text-2xl font-extrabold mb-2 flex justify-center ">{get_recipeName}</h2>
+                    <div className="flex flex-col md:flex-row my-5 md:my-10 items-center">
+                    <div className="bg-black bg-opacity-80 text-white p-5 mx-8 h-fit ">
+                      <p className="text-light-green font-semibold text-xl md:text-2xl pb-2">List of Ingredients:</p>
+                      <ul className="pl-3 leading-9 md:text-lg text-base">
                         {get_ingredients.map((ingredient, index) => (
-                          <li key={index}>{ingredient}</li>
+                          <li key={index}>{`~ ${ingredient}`}</li>
                         ))}
                       </ul>
                     </div>
-                    <div className="text-lg pt-8">
-                      Instructions:
-                      <ol>
+                    <div className="pt-10  md:pl-10 px-2">
+                   <p className="font-semibold text-2xl"> Read Cooking Instructions Carefully:</p>
+                      <ol className="pl-3 leading-9">
                         {get_instructions.map((instruction, index) => (
                           <li key={index}>{`${index + 1}. ${instruction.listItems}`}</li>
                         ))}
                       </ol>
                     </div>
-
+                    </div>
                   </div>
                 </div>
               </div>
@@ -126,16 +127,17 @@ function Form({ onClose }: Props) {
   return (
     <div className="bg-black bg-opacity-20 h-full py-12 ">
       <p className="text-center text-white text-[4rem] md:text-4xl lg:text-5xl font-black">Make your own special recipe.</p>
-      <div className="bg-white bg-opacity-60 text-xl p-4 max-w-6xl mx-auto my-10  rounded shadow-md">
+      <div className="bg-white  bg-opacity-60 text-xl p-4 max-w-6xl mx-auto my-10  rounded shadow-md">
         <form onSubmit={handleSubmit}>
           <label className="block mb-8 ">
-            Describe what you want to make:
+          List all available ingredients:
             <input
               className="border rounded px-2 py-1 my-2 w-full h-20"
               type="text"
               name="prompt"
               value={formData.prompt}
               onChange={handleChange}
+
             />
           </label>
           <div className="flex gap-10 mb-8">
