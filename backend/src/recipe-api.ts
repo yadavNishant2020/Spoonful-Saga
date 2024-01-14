@@ -88,7 +88,7 @@ const schema = {
         },
         get_ingredients: {
             type: "array",
-            description: "List of ingredients that will be used in making this dish.",
+            description: "List of ingredients with quantity according to the serving size that will be used in making this dish.",
             items: {
                 type: "object",
                 properties: {

@@ -5,7 +5,11 @@ interface Props {
   onClose: () => void;
 }
 
-function Form( { onClose }: Props) {
+interface Instruction {
+  listItems: string;
+}
+
+function Form({ onClose }: Props) {
   const [formData, setFormData] = useState({
     prompt: "",
     servings: "1",
@@ -13,6 +17,10 @@ function Form( { onClose }: Props) {
     spiceLevel: "Low Spice Level",
     allergyType: "",
     chatGptResponse: "",
+    get_recipeName: "",
+    get_ingredients: [],
+    get_instructions: [] as Instruction[]
+
   });
   const [isModalOpen, setIsModalOpen] = useState(true);
 
@@ -37,10 +45,17 @@ function Form( { onClose }: Props) {
       });
 
       if (response.data.chatGptResponse) {
-        const responseData = JSON.stringify(response.data.chatGptResponse);
+        const responseData = JSON.parse(response.data.chatGptResponse);
+        const title = responseData.get_recipeName;
+        const ingredientsUsed = responseData.get_ingredients;
+        const instructions = responseData.get_instructions;
         setFormData({
           ...formData,
           chatGptResponse: responseData,
+          get_recipeName: title || "",
+          get_ingredients: ingredientsUsed || "",
+          get_instructions: instructions || "",
+
         });
       } else {
         throw new Error("Invalid or empty response from the server.");
@@ -51,11 +66,12 @@ function Form( { onClose }: Props) {
   };
 
   const renderResponse = () => {
-    if (formData.chatGptResponse && isModalOpen ) {
+    if (formData.chatGptResponse && isModalOpen) {
       try {
-        const chatGptResponse = JSON.stringify(formData.chatGptResponse);
-
-        console.log("Parsed chatGptResponse:", chatGptResponse);
+        // const chatGptResponse = JSON.stringify(formData.chatGptResponse);
+        const get_recipeName = formData.get_recipeName;
+        const get_ingredients = formData.get_ingredients;
+        const get_instructions = formData.get_instructions;
 
         return (
           <div className="fixed inset-0 overflow-y-auto">
@@ -74,7 +90,23 @@ function Form( { onClose }: Props) {
                     >
                       &times;
                     </span></h2>
-                    <p className="text-lg pt-8">{chatGptResponse}</p>
+                    <p className="text-lg pt-8">{get_recipeName}</p>
+                    <div className="text-lg pt-8">
+                      Ingredients:
+                      <ul>
+                        {get_ingredients.map((ingredient, index) => (
+                          <li key={index}>{ingredient}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="text-lg pt-8">
+                      Instructions:
+                      <ol>
+                        {get_instructions.map((instruction, index) => (
+                          <li key={index}>{`${index + 1}. ${instruction.listItems}`}</li>
+                        ))}
+                      </ol>
+                    </div>
 
                   </div>
                 </div>
@@ -154,7 +186,7 @@ function Form( { onClose }: Props) {
             Please specify if you have any Allergy:
             <select
               className="border rounded px-2 py-1 w-fit ml-2"
-              name="dishType"
+              name="allergyType"
               value={formData.allergyType}
               onChange={handleChange}
             >
