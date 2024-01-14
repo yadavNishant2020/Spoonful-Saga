@@ -76,38 +76,74 @@ export const getFavRecipedByIDs = async (ids: string[]) => {
     const searchResponse = await fetch(url);
     const json = await searchResponse.json();
 
-    return {results: json};
+    return { results: json };
 }
 
-export const chatGpt = async (prompt: any, servings: string, dishType: string, spiceLevel:string, allergyType:string) => {
+const schema = {
+    type: "object",
+    properties: {
+        get_recipeName: {
+            type: "string",
+            description: "Generate a recipe for a dish with the following ingredients. Please provide the name of the dish."
+        },
+        get_ingredients: {
+            type: "array",
+            description: "List of ingredients that will be used in making this dish.",
+            items: {
+                type: "object",
+                properties: {
+                    listItem: { type: "string" }
+                }
+            }
+        },
+        get_instructions: {
+            type: "array",
+            description: "Give all the cooking instructions serial wise.",
+            items: {
+                type: "object",
+                properties: {
+                    listItems: { type: "string" }
+                }
+            }
+        }
+    },
+    required: ["get_recipeName", "get_ingredients", "get_instructions"]
+}
+
+export const chatGpt = async (prompt: any, servings: string, dishType: string, spiceLevel: string, allergyType: string) => {
     try {
-      if (!prompt) {
-        throw new Error("Prompt is null or undefined");
-      }
+        if (!prompt) {
+            throw new Error("Prompt is null or undefined");
+        }
 
-      console.log("Prompt:", prompt);
-      console.log("Servings:", servings);
-      console.log("Dish Type:", dishType);
-  
-      const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "user",
-            content: `${prompt} Servings: ${servings} Dish Type: ${dishType} Spice Level:${spiceLevel} strictly avoid using: ${allergyType} `,
-          },
-        ],
-        temperature: 1,
-        max_tokens: 661,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      });
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [
+                {
+                    role: "system",
+                    content: "You are a `food connoisseur` asistant who knows all recipes.Generate me a recipes with the following ingredients.",
+                },
+                {
+                    role: "user",
+                    content: `${prompt} Servings: ${servings} Dish Type: ${dishType} Spice Level:${spiceLevel} strictly avoid using: ${allergyType} `,
+                },
+            ],
+            functions: [
+                {
+                    name: "get_recipe_details",
+                    "parameters": schema
+                }
+            ],
+            function_call: {
+                name: "get_recipe_details"
+            },
+            temperature: 0.5
+        });
 
-      console.log(response);
+        console.log(response);
 
-      return response.choices[0].message.content;
+        return response.choices[0].message.function_call?.arguments;
     } catch (error) {
-      console.error(error);
+        console.error(error);
     }
-  };
+};

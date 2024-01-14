@@ -89,6 +89,7 @@ app.post("/chat", async (req, res) => {
     try {
         const chatGptResponse = await RecipeAPI.chatGpt(prompt, servings, dishType, spiceLevel, allergyType);
         return res.json({ chatGptResponse });
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: "Internal Server Error" });

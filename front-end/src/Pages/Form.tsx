@@ -53,7 +53,7 @@ function Form( { onClose }: Props) {
   const renderResponse = () => {
     if (formData.chatGptResponse && isModalOpen ) {
       try {
-        const chatGptResponse = JSON.parse(formData.chatGptResponse);
+        const chatGptResponse = JSON.stringify(formData.chatGptResponse);
 
         console.log("Parsed chatGptResponse:", chatGptResponse);
 
