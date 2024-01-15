@@ -6,6 +6,7 @@ interface Props {
   onclick: () => void
   onFavBtnClick: (recipe: Recipe) => void
   isFav: boolean
+  
 
 }
 export const RecipeCard = ({ recipe, onclick, onFavBtnClick, isFav }: Props) => {

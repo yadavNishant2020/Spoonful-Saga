@@ -12,6 +12,8 @@ const RecipeSearchFunctionality = () => {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(undefined);
   const [selectesTab, setSelectedTab] = useState<Tabs>("search");
   const [favouriteRecipes, setfavouriteRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const pageNumber = useRef(1);
 
 
@@ -37,6 +39,7 @@ const RecipeSearchFunctionality = () => {
   const handleSearchSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
+      setLoading(true);
       const recipes = await api.searchRecipes(searchTerm, 1);
       setRecipes(recipes.results);
       console.log(setRecipes);
@@ -45,6 +48,8 @@ const RecipeSearchFunctionality = () => {
 
       console.error("Failed fetching api.", error);
 
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -101,16 +106,24 @@ const RecipeSearchFunctionality = () => {
                 </svg>
               </div>
               <div className="flex flex-col md:flex-row items-center gap-3">
-              <input
-                type="text"
-                required
-                placeholder="Enter recipe keyword"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-9 p-2 border rounded "
-              />
+                <input
+                  type="text"
+                  required
+                  placeholder="Enter recipe keyword"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-9 p-2 border rounded "
+                />
 
-              <button className="p-2  text-white bg-green-600 hover:bg-green-400 rounded w-36">Search Recipes</button>
+                <button
+                  className={`p-2 text-white bg-green-600 hover:bg-green-400 rounded w-36 relative ${loading ? 'flex items-center justify-center' : ''}`}
+                  disabled={loading}
+                >
+                  {loading && (
+                    <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white"></div>
+                  )}
+                  {!loading && 'Search Recipes'}
+                </button>
               </div>
             </div>
           </form>
@@ -133,7 +146,7 @@ const RecipeSearchFunctionality = () => {
       )}
 
       {selectesTab === "favrourites" && (
-          <div className="flex flex-wrap justify-around gap-5">
+        <div className="flex flex-wrap justify-around gap-5">
           {favouriteRecipes.map((recipe) => (
             <RecipeCard
               key={recipe.id}

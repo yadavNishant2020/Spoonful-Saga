@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from "react";
+import { RingLoader } from "react-spinners";
 import axios from "axios";
 
 interface Props {
@@ -22,7 +23,8 @@ function Form({ onClose }: Props) {
     get_instructions: [] as Instruction[]
 
   });
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
@@ -33,6 +35,8 @@ function Form({ onClose }: Props) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setIsModalOpen(true);
 
     try {
       const response = await axios.post("http://localhost:4000/chat", {
@@ -62,66 +66,91 @@ function Form({ onClose }: Props) {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const renderResponse = () => {
-    if (formData.chatGptResponse && isModalOpen) {
+    if (isModalOpen) {
       try {
-        // const chatGptResponse = JSON.stringify(formData.chatGptResponse);
         const get_recipeName = formData.get_recipeName;
         const get_ingredients = formData.get_ingredients;
         const get_instructions = formData.get_instructions;
-
+  
         return (
           <div className="fixed inset-0 overflow-y-auto z-30">
             <div className="flex items-center justify-center mx-5 md:mt-8 ">
               <div className="overlay fixed inset-0 bg-black bg-opacity-80"></div>
-
+  
               <div className="modal bg-recipe-background p-6 rounded-lg shadow-lg relative  md:w-[80vw]">
                 <div className="modal-content">
-                  <div className="modal-header mb-4 ">
-                  <span
-                      className="close-btn cursor-pointer text-gray-500 text-3xl flex justify-end"
-                      onClick={() => {
-                        onClose();
-                        setIsModalOpen(false);
-                      }}
-                    >
-                      &times;
-                    </span>
-                    <h2 className="md:text-3xl text-xl font-extrabold mb-2 flex justify-center ">{get_recipeName}</h2>
-                    <div className="flex flex-col md:flex-row my-5 md:my-10 items-center ">
-                    <div className="bg-black bg-opacity-80 text-white p-5 md:mx-8 h-fit md:w-1/2">
-                      <p className="text-light-green font-semibold text-xl md:text-2xl pb-2">Ingredients:</p>
-                      <ul className="pl-3 md:text-lg text-base">
-                        {get_ingredients.map((ingredient, index) => (
-                          <li className=" leading-10"  key={index}>{`~ ${ingredient}`}</li>
-                        ))}
-                      </ul>
+                <span
+                        className="close-btn cursor-pointer text-gray-500 text-3xl flex justify-end"
+                        onClick={() => {
+                          onClose();
+                          setIsModalOpen(false);
+                        }}
+                      >
+                        &times;
+                      </span>
+                  {loading ? (
+
+                    <div className="flex flex-col justify-center items-center md:h-[80vh] mt-20">
+                      <RingLoader color="#91C851" size={100} loading={loading} />
+                      <h2 className="text-xl mt-4 text-gray-600">Preparing your personalized recipe....</h2>
+
                     </div>
-                    <div className="pt-10 md:pt-0 md:pl-10 px-2">
-                   <p className="font-semibold text-xl md:text-2xl pb-5"> Read Cooking Instructions Carefully:</p>
-                      <ol className="pl-3">
-                        {get_instructions.map((instruction, index) => (
-                          <li className="pb-10 md:pb-0 leading-7 md:leading-10"  key={index}>{`${index + 1}. ${instruction.listItems}`}</li>
-                        ))}
-                      </ol>
+                  ) : (
+                    <div className="modal-header mb-4 ">
+
+                      <h2 className="md:text-3xl text-xl font-extrabold mb-2 flex justify-center ">
+                        {get_recipeName}
+                      </h2>
+                      <div className="flex flex-col md:flex-row my-5 md:my-10 items-center">
+                        <div className="bg-black bg-opacity-80 text-white p-5 md:mx-8 h-fit md:w-1/2">
+                          <p className="text-light-green font-semibold text-xl md:text-2xl pb-2">
+                            Ingredients:
+                          </p>
+                          <ul className="pl-3 md:text-lg text-base">
+                            {get_ingredients.map((ingredient, index) => (
+                              <li
+                                className=" leading-10"
+                                key={index}
+                              >{`~ ${ingredient}`}</li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="pt-10 md:pt-0 md:pl-10 px-2">
+                          <p className="font-semibold text-xl md:text-2xl pb-5">
+                            Read Cooking Instructions Carefully:
+                          </p>
+                          <ol className="pl-3">
+                            {get_instructions.map((instruction, index) => (
+                              <li
+                                className="pb-10 md:pb-0 leading-7 md:leading-10"
+                                key={index}
+                              >{`${index + 1}. ${instruction.listItems}`}</li>
+                            ))}
+                          </ol>
+                        </div>
+                      </div>
                     </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         );
       } catch (error) {
-        console.error("Error parsing chatGptResponse:", error);
+        console.error("Error rendering modal content:", error);
+        // You might want to display an error message or handle the error in a way that fits your application.
       }
     }
-
+  
     return null;
   };
+
 
 
   return (
@@ -130,7 +159,7 @@ function Form({ onClose }: Props) {
       <div className="bg-white  bg-opacity-60 text-xl p-4 max-w-6xl mx-2 md:mx-auto my-10  rounded shadow-md">
         <form onSubmit={handleSubmit}>
           <label className="block mb-8 ">
-          List all available ingredients:
+            List all available ingredients:
             <input
               className="border rounded px-2 py-1 my-2 w-full h-20"
               type="text"
@@ -202,8 +231,13 @@ function Form({ onClose }: Props) {
           <button
             className="p-2 text-white bg-green-600 hover:bg-green-400 rounded w-36"
             type="submit"
+            disabled={loading}
           >
-            Start Cooking
+            {loading ? (
+              <RingLoader color="#fff" size={20} loading={loading} />
+            ) : (
+              "Start Cooking"
+            )}
           </button>
         </form>
         {renderResponse()}
