@@ -60,9 +60,6 @@ function Navbar() {
                                 <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">Search</a>
                             </li>
 
-                            <li>
-                                <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">Contact</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
