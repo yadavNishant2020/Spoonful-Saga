@@ -75,10 +75,10 @@ function Form({ onClose }: Props) {
 
         return (
           <div className="fixed inset-0 overflow-y-auto z-30">
-            <div className="flex  items-center justify-center mt-3 mx-5 ">
+            <div className="flex items-center justify-center mx-5 md:mt-8 ">
               <div className="overlay fixed inset-0 bg-black bg-opacity-80"></div>
 
-              <div className="modal bg-recipe-background p-6 rounded-lg shadow-lg relative md:w-[80vw]">
+              <div className="modal bg-recipe-background p-6 rounded-lg shadow-lg relative  md:w-[80vw]">
                 <div className="modal-content">
                   <div className="modal-header mb-4 ">
                   <span
@@ -90,21 +90,21 @@ function Form({ onClose }: Props) {
                     >
                       &times;
                     </span>
-                    <h2 className="ms:text-3xl text-2xl font-extrabold mb-2 flex justify-center ">{get_recipeName}</h2>
-                    <div className="flex flex-col md:flex-row my-5 md:my-10 items-center">
-                    <div className="bg-black bg-opacity-80 text-white p-5 mx-8 h-fit ">
-                      <p className="text-light-green font-semibold text-xl md:text-2xl pb-2">List of Ingredients:</p>
-                      <ul className="pl-3 leading-9 md:text-lg text-base">
+                    <h2 className="md:text-3xl text-xl font-extrabold mb-2 flex justify-center ">{get_recipeName}</h2>
+                    <div className="flex flex-col md:flex-row my-5 md:my-10 items-center ">
+                    <div className="bg-black bg-opacity-80 text-white p-5 md:mx-8 h-fit md:w-1/2">
+                      <p className="text-light-green font-semibold text-xl md:text-2xl pb-2">Ingredients:</p>
+                      <ul className="pl-3 md:text-lg text-base">
                         {get_ingredients.map((ingredient, index) => (
-                          <li key={index}>{`~ ${ingredient}`}</li>
+                          <li className=" leading-10"  key={index}>{`~ ${ingredient}`}</li>
                         ))}
                       </ul>
                     </div>
-                    <div className="pt-10  md:pl-10 px-2">
-                   <p className="font-semibold text-2xl"> Read Cooking Instructions Carefully:</p>
-                      <ol className="pl-3 leading-9">
+                    <div className="pt-10 md:pt-0 md:pl-10 px-2">
+                   <p className="font-semibold text-xl md:text-2xl pb-5"> Read Cooking Instructions Carefully:</p>
+                      <ol className="pl-3">
                         {get_instructions.map((instruction, index) => (
-                          <li key={index}>{`${index + 1}. ${instruction.listItems}`}</li>
+                          <li className="pb-10 md:pb-0 leading-7 md:leading-10"  key={index}>{`${index + 1}. ${instruction.listItems}`}</li>
                         ))}
                       </ol>
                     </div>
@@ -126,8 +126,8 @@ function Form({ onClose }: Props) {
 
   return (
     <div className="bg-black bg-opacity-20 h-full py-12 ">
-      <p className="text-center text-white text-[4rem] md:text-4xl lg:text-5xl font-black">Make your own special recipe.</p>
-      <div className="bg-white  bg-opacity-60 text-xl p-4 max-w-6xl mx-auto my-10  rounded shadow-md">
+      <p className="text-center text-white text-4xl lg:text-5xl font-black">Make your own Special Recipe</p>
+      <div className="bg-white  bg-opacity-60 text-xl p-4 max-w-6xl mx-2 md:mx-auto my-10  rounded shadow-md">
         <form onSubmit={handleSubmit}>
           <label className="block mb-8 ">
           List all available ingredients:
@@ -140,7 +140,7 @@ function Form({ onClose }: Props) {
 
             />
           </label>
-          <div className="flex gap-10 mb-8">
+          <div className="flex flex-col md:flex-row gap-10 mb-8">
             <label >
               Number of Servings:
               <select

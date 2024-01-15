@@ -80,8 +80,8 @@ const RecipeSearchFunctionality = () => {
 
   return (
 
-    <div className="h-auto p-8 bg-black bg-opacity-60 flex flex-col items-center">
-      <div className="text-center  text-white text-[4rem] md:text-4xl lg:text-5xl my-3  font-black">
+    <div className="h-auto p-5  md:p-8 bg-black bg-opacity-60 flex flex-col items-center py-8 ">
+      <div className="text-center  text-white text-4xl lg:text-5xl  font-black">
         <p>Find all the Recipes in just One Click </p>
       </div>
       <div className="flex justify-center my-9 ">

@@ -51,11 +51,15 @@ function Navbar() {
                                 <a href="#" className="block px-3 py-2 rounded md:bg-transparent md:p-0 hover:text-green-200" aria-current="page">Home</a>
                             </li>
                             <li>
-                                <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">About</a>
+                                <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">Features</a>
                             </li>
                             <li>
-                                <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">Services</a>
+                                <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">Customize</a>
                             </li>
+                            <li>
+                                <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">Search</a>
+                            </li>
+
                             <li>
                                 <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">Contact</a>
                             </li>
