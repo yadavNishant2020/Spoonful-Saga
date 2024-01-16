@@ -96,7 +96,7 @@ function Form({ onClose }: Props) {
                       </span>
                   {loading ? (
 
-                    <div className="flex flex-col justify-center items-center md:h-[80vh] mt-20">
+                    <div className="flex flex-col justify-center items-center md:h-[80vh] ">
                       <RingLoader color="#91C851" size={100} loading={loading} />
                       <h2 className="text-xl mt-4 text-gray-600">Preparing your personalized recipe....</h2>
 
@@ -182,7 +182,7 @@ function Form({ onClose }: Props) {
                 <option value="2">2</option>
                 <option value="4">3</option>
                 <option value="4">4</option>
-                <option value="4">5</option>
+                <option value="5">5</option>
               </select>
             </label>
             <label >
@@ -206,6 +206,7 @@ function Form({ onClose }: Props) {
                 value={formData.spiceLevel}
                 onChange={handleChange}
               >
+                <option value="No Spice">None</option>
                 <option value="Low Spice Level">Low Spice Level</option>
                 <option value="Medium Spice Level">Medium Spice Level</option>
                 <option value="High Spice Level">High Spice Level</option>

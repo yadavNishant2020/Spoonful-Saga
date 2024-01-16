@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { Link } from 'react-scroll';
 
 function Navbar() {
     const [isNavOpen, setIsNavOpen] = useState(false);
 
-    const toggleNav = () => {
-        setIsNavOpen(!isNavOpen);
+const toggleNav = () => {
+setIsNavOpen(!isNavOpen);
     };
 
     return (
@@ -48,23 +49,23 @@ function Navbar() {
                     >
                         <ul className="flex flex-col p-4 mt-4 text-lg font-medium md:p-0 text-light-green md:space-x-16 rtl:space-x-reverse md:flex-row md:mt-0">
                             <li>
-                                <a href="#" className="block px-3 py-2 rounded md:bg-transparent md:p-0 hover:text-green-200" aria-current="page">Home</a>
+                                <Link to="home" smooth={true} duration={500} className="block px-3 py-2 rounded md:bg-transparent md:p-0 hover:text-green-200 cursor-pointer" spy={true}  offset={-70} activeClass="active">Home</Link>
                             </li>
                             <li>
-                                <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">Features</a>
+                                <Link to="features" smooth={true} duration={500} className="block px-3 py-2 rounded md:p-0 hover:text-green-200 cursor-pointer">Features</Link>
                             </li>
                             <li>
-                                <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">Customize</a>
+                                <Link to="form" smooth={true} duration={500} className="block px-3 py-2 rounded md:p-0 hover:text-green-200 cursor-pointer">Customize</Link>
                             </li>
                             <li>
-                                <a href="#" className="block px-3 py-2 rounded md:p-0 hover:text-green-200">Search</a>
+                                <Link to="search" smooth={true} duration={500} className="block px-3 py-2 rounded md:p-0 hover:text-green-200 cursor-pointer">Search</Link>
                             </li>
-
                         </ul>
                     </div>
                 </div>
             </nav>
-        </>)
+        </>
+    );
 }
 
-export default Navbar
+export default Navbar;
