@@ -4,7 +4,8 @@
   "description": "",
   "main": "./src/index.ts",
   "scripts": {
-    "start": "npx nodemon"
+    "start": "npx nodemon",
+    "build": "tsc && vite build"
   },
   "author": "Nishant",
   "license": "ISC",
@@ -13,7 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "openai": "^4.24.2",
+    "openai": "^4.24.7",
     "prisma": "^5.5.2"
   },
   "devDependencies": {
