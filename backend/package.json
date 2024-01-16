@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "start": "npx nodemon",
-    "build": "tsc && vite build"
+    "build": "tsc"
   },
   "author": "Nishant",
   "license": "ISC",
