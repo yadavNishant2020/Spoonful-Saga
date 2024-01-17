@@ -2,7 +2,7 @@ import { Recipe } from "./types";
 
 export const searchRecipes = async (searchTerm: string, page: number) => {
 
-   const baseUrl = new URL("http://localhost:4000/api/recipes/search");
+   const baseUrl = new URL("spoonful-saga-api.vercel.app/api/recipes/search");
 
    baseUrl.searchParams.append("searchTerm", searchTerm)
    baseUrl.searchParams.append("page", String(page));
@@ -17,7 +17,7 @@ export const searchRecipes = async (searchTerm: string, page: number) => {
 };
 
 export const getRecipeSummary = async (recipeId: string) => {
-   const url = new URL(`http://localhost:4000/api/recipes/${recipeId}/summary`);
+   const url = new URL(`http://spoonful-saga-api.vercel.app/api/recipes/${recipeId}/summary`);
    const response = await fetch(url);
 
    if (!response.ok) {
@@ -28,7 +28,7 @@ export const getRecipeSummary = async (recipeId: string) => {
 };
 
 export const getFavouriteRecipes = async () => {
-   const url = new URL("http://localhost:4000/api/recipes/favourite");
+   const url = new URL("http://spoonful-saga-api.vercel.app/api/recipes/favourite");
    const response = await fetch(url);
 
    if (!response.ok) {
@@ -39,7 +39,7 @@ export const getFavouriteRecipes = async () => {
 }
 
 export const addFavRecipe = async (recipe: Recipe) => {
-   const url = new URL("http://localhost:4000/api/recipes/favourite");
+   const url = new URL("http://spoonful-saga-api.vercel.app/api/recipes/favourite");
    const body = {
       recipeId: recipe.id
    }
@@ -59,7 +59,7 @@ export const addFavRecipe = async (recipe: Recipe) => {
 
 export const removeFavRecipe = async (recipe: Recipe) =>{
 
-   const url = new URL("http://localhost:4000/api/recipes/favourite");
+   const url = new URL("http://spoonful-saga-api.vercel.app/api/recipes/favourite");
    const body = {
       recipeId: recipe.id
    }
