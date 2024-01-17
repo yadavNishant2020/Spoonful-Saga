@@ -4,9 +4,10 @@ import cors from "cors"
 import * as RecipeAPI from "./recipe-api"
 import { PrismaClient } from "@prisma/client";
 import OpenAI from "openai";
+import BASE_URL from process.env.BASE_URL;
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT ||  4000;
 const prismaClient = new PrismaClient();
 
 const openai = new OpenAI({
