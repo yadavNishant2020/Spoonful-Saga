@@ -3,18 +3,14 @@ import express from "express"
 import cors from "cors"
 import * as RecipeAPI from "./recipe-api"
 import { PrismaClient } from "@prisma/client";
-import OpenAI from "openai";
 
 const app = express();
 const port = process.env.PORT;
 const prismaClient = new PrismaClient();
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
 
 app.use(express.json())
-app.use(cors())
+app.use(cors());
 
 app.get("/api/recipes/search", async (req, res) => {
     // https://api.spoonacular.com/recipes/serach?searchTerm=burger&page=2
@@ -53,7 +49,7 @@ app.post("/api/recipes/favourite", async (req, res) => {
     }
 })
 
-app.get("/api/recipes/favourite", async (req, res) => {
+app.get("/api/recipes/favourite", async (_ , res) => {
     try {
         const favRecipes = await prismaClient.favResipies.findMany();
 
@@ -64,6 +60,8 @@ app.get("/api/recipes/favourite", async (req, res) => {
         return res.json(favorites);
     } catch (error) {
         console.log(error);
+        return res.status(500).json({ error: "Internal Server Error" });
+
     }
 
 })

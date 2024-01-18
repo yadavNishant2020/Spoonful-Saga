@@ -4,8 +4,11 @@
   "description": "",
   "main": "./src/index.ts",
   "scripts": {
-    "start": "npx nodemon",
-    "build": "tsc"
+    "watch": "tsc -w",
+    "dev": "nodemon dist/index.js",
+    "build": "tsc",
+    "start": "node dist/index.js"
+
   },
   "author": "Nishant",
   "license": "ISC",
