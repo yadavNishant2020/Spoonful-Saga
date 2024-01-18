@@ -83,7 +83,7 @@ function Form({ onClose }: Props) {
             <div className="flex items-center justify-center mx-5 md:mt-8 ">
               <div className="overlay fixed inset-0 bg-black bg-opacity-80"></div>
   
-              <div className="modal bg-recipe-background p-6 rounded-lg shadow-lg relative  md:w-[80vw]">
+              <div className="modal bg-[url('/img/recipeBg.jpeg')] p-6 rounded-lg shadow-lg relative  md:w-[80vw]">
                 <div className="modal-content">
                 <span
                         className="close-btn cursor-pointer text-gray-500 text-3xl flex justify-end"
