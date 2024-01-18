@@ -6,23 +6,15 @@ import { PrismaClient } from "@prisma/client";
 import OpenAI from "openai";
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT ||  4000;
 const prismaClient = new PrismaClient();
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.use(cors(
-{
-    origin: ["https://deploy-mern-1whq.ve[-cel.app"],
-    methods: ["POST", "GET"],
-    credentials: true
-}
-));
-
 app.use(express.json())
-
+app.use(cors())
 
 app.get("/api/recipes/search", async (req, res) => {
     // https://api.spoonacular.com/recipes/serach?searchTerm=burger&page=2

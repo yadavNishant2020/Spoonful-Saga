@@ -39,7 +39,7 @@ function Form({ onClose }: Props) {
     setIsModalOpen(true);
 
     try {
-      const response = await axios.post("http://spoonful-saga-api.vercel.app/chat", {
+      const response = await axios.post("http://localhost:4000/chat", {
         prompt: formData.prompt,
         servings: formData.servings,
         dishType: formData.dishType,
