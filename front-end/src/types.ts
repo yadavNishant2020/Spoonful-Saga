@@ -1,4 +1,3 @@
-import { chatGpt } from './../../backend/src/recipe-api';
 export interface Recipe {
     id: number;
     title: string;
