@@ -39,7 +39,7 @@ function Form({ onClose }: Props) {
     setIsModalOpen(true);
 
     try {
-      const response = await axios.post("http://localhost:4000/chat", {
+      const response = await axios.post("https://wandering-impulse-production.up.railway.app/chat", {
         prompt: formData.prompt,
         servings: formData.servings,
         dishType: formData.dishType,
