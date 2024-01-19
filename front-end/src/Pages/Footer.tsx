@@ -24,7 +24,7 @@ function Footer() {
                 Designed and Developed By:
                 <a
                     className="text-light-green pl-2"
-                    href="https://nsy.co.in/"
+                    href="https://nsy.co.in/" target="_" 
                 >
                     Nishant Yadav
                 </a>
