@@ -9,10 +9,7 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-interface Recipe {
-    recipeId: string;
-    name: string;
-}
+
 
 // console.log(apiKey);
 
