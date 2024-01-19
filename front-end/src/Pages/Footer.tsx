@@ -7,17 +7,15 @@ function Footer() {
             className="flex flex-col items-center  text-center text-white bg-black ">
             <div className="container pt-9">
                 <div className="mb-4 flex justify-center">
-                    <a href="#!" className="mr-9 text-neutral-800 dark:text-neutral-200">
+                    <a href="https://twitter.com/NishantSinghY15" target="_" className="mr-9 text-neutral-800 dark:text-neutral-200">
                         <FaXTwitter />
                     </a>
-                    <a href="#!" className="mr-9 text-neutral-800 dark:text-neutral-200">
+                    <a href="https://www.linkedin.com/in/nishant-singh-yadav/" target="_" className="mr-9 text-neutral-800 dark:text-neutral-200">
                         <FaLinkedin />
                     </a>
-                    <a href="#!" className="mr-9 text-neutral-800 dark:text-neutral-200">
+                    <a href="https://github.com/yadavNishant2020" target="_" className="mr-9 text-neutral-800 dark:text-neutral-200">
                         <FaGithub />
-
                     </a>
-
                 </div>
             </div>
 

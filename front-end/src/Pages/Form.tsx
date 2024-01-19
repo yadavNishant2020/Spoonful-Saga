@@ -79,8 +79,8 @@ function Form({ onClose }: Props) {
         const get_instructions = formData.get_instructions;
   
         return (
-          <div className="fixed inset-0 overflow-y-auto z-30">
-            <div className="flex items-center justify-center mx-5 md:mt-8 ">
+          <div className="fixed inset-0 overflow-y-auto z-30 h-screen flex items-center justify-center">
+            <div className="flex items-center justify-center mx-5   md:mt-8 ">
               <div className="overlay fixed inset-0 bg-black bg-opacity-80"></div>
   
               <div className="modal bg-[url('/img/recipeBg.jpeg')] p-6 rounded-lg shadow-lg relative  md:w-[80vw]">
@@ -98,7 +98,7 @@ function Form({ onClose }: Props) {
 
                     <div className="flex flex-col justify-center items-center md:h-[80vh] ">
                       <RingLoader color="#91C851" size={100} loading={loading} />
-                      <h2 className="text-xl mt-4 text-gray-600">Preparing your personalized recipe....</h2>
+                      <h2 className="text-xl mt-4 text-gray-600 text-center">Cooking up a delectable recipe. Take it easy...</h2>
 
                     </div>
                   ) : (
@@ -234,11 +234,8 @@ function Form({ onClose }: Props) {
             type="submit"
             disabled={loading}
           >
-            {loading ? (
-              <RingLoader color="#fff" size={20} loading={loading} />
-            ) : (
-              "Start Cooking"
-            )}
+              Start Cooking
+
           </button>
         </form>
         {renderResponse()}
