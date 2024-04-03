@@ -27,9 +27,6 @@ Empowering the backend with scalability and efficient business logic handling.
 🐘 **PostgreSQL Database:**
 Organized and secure storage of recipe data with a relational database.
 
-🔑 **JWT Authentication:**
-Secure user authentication using JSON Web Tokens to protect user data.
-
 🌐 **RESTful API Design:**
 Clear and standardized communication between the frontend and backend.
 
