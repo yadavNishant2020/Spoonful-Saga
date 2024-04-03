@@ -116,10 +116,9 @@ function Form({ onClose }: Props) {
                             Ingredients:
                           </p>
                           <ul className="pl-3 md:text-lg text-base">
-                            {
-                              (get_ingredients as any[]).map((ingredient: any, index: number) => (
-                                <li className="leading-10" key={index}>{`~ ${ingredient.name}`}</li>
-                              ))}
+                            {(get_ingredients as any[]).map((ingredient: any, index: number) => (
+                              <li className="leading-10" key={index}>{`~ ${ingredient.listItem}`}</li>
+                            ))}
                           </ul>
                         </div>
                         <div className="pt-10 md:pt-0 md:pl-10 px-2">
