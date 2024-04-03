@@ -6,9 +6,9 @@ function Home() {
     return (
         <div className="flex flex-col items-center md:h-screen font-sans md:bg-cover">
             <Navbar />
-            <div className=" text-center">
-            <div className="flex flex-col pt-[40%] md:pt-[25vh]">
-                <div className="text-center text-white text-[4rem] md:text-7xl lg:text-8xl mx-3 font-black ">
+            <div className="text-center">
+            <div className="flex flex-col pt-[40%] md:pt-[30vh]">
+                <div className="text-center text-white text-[4rem] md:text-[6rem] lg:text-[7rem] mx-3 font-black ">
                     <h1 className=" leading-[5rem] md:leading-[7rem]">Explore the <br /> <span className="text-light-green">A</span>rt of <span className="text-light-green">T</span>aste <br /> <span className="text-light-green">Spoonful Saga !</span> </h1>
                 </div>
             </div>
