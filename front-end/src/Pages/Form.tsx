@@ -20,7 +20,7 @@ function Form({ onClose }: Props) {
     chatGptResponse: "",
     get_recipeName: "",
     get_ingredients: [],
-    get_instructions: [] as Instruction[]
+    get_instructions: [] as Instruction[],
 
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -113,11 +113,8 @@ function Form({ onClose }: Props) {
                             Ingredients:
                           </p>
                           <ul className="pl-3 md:text-lg text-base">
-                            {get_ingredients.map((ingredient, index) => (
-                              <li
-                                className=" leading-10"
-                                key={index}
-                              >{`~ ${ingredient}`}</li>
+                            {(get_ingredients as any[]).map((ingredient: any, index: number) => (
+                              <li className="leading-10" key={index}>{`~ ${ingredient.name}`}</li>
                             ))}
                           </ul>
                         </div>
