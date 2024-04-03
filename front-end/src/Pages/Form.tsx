@@ -53,14 +53,17 @@ function Form({ onClose }: Props) {
         const title = responseData.get_recipeName;
         const ingredientsUsed = responseData.get_ingredients;
         const instructions = responseData.get_instructions;
+
+        console.log("ingredientsUsed: ", ingredientsUsed);
+
         setFormData({
           ...formData,
           chatGptResponse: responseData,
           get_recipeName: title || "",
           get_ingredients: ingredientsUsed || "",
           get_instructions: instructions || "",
-
         });
+
       } else {
         throw new Error("Invalid or empty response from the server.");
       }
@@ -113,9 +116,10 @@ function Form({ onClose }: Props) {
                             Ingredients:
                           </p>
                           <ul className="pl-3 md:text-lg text-base">
-                            {(get_ingredients as any[]).map((ingredient: any, index: number) => (
-                              <li className="leading-10" key={index}>{`~ ${ingredient.name}`}</li>
-                            ))}
+                            {
+                              (get_ingredients as any[]).map((ingredient: any, index: number) => (
+                                <li className="leading-10" key={index}>{`~ ${ingredient.name}`}</li>
+                              ))}
                           </ul>
                         </div>
                         <div className="pt-10 md:pt-0 md:pl-10 px-2">
