@@ -83,10 +83,10 @@ function Form({ onClose }: Props) {
 
         return (
           <div className={`fixed inset-0 overflow-y-auto z-30 h-screen ${loading ? 'flex items-center justify-center' : ''}`}>
-            <div className="flex items-center justify-center mx-5 md:mt-8 ">
-              <div className="overlay fixed inset-0 bg-black bg-opacity-80"></div>
+            <div className="flex items-center justify-center m-5 ">
+              <div className="overlay fixed inset-0 bg-black bg-opacity-80 "></div>
 
-              <div className="modal bg-[url('/img/recipeBg.jpeg')] p-6 rounded-lg shadow-lg relative  md:w-[80vw]">
+              <div className="modal bg-[url('/img/recipeBg.jpeg')] p-6 rounded-lg shadow-lg relative  md:w-[80vw] h-[95vh]">
                 <div className="modal-content">
                   <span
                     className="close-btn cursor-pointer text-gray-500 text-3xl flex justify-end"
